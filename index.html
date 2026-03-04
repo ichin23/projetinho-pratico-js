@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Praticando JS</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <section style="background-color: #0000ff; color: #ffffff;" id="operationsSection">
+        <h2>Seção de Operações</h2>
+        <select id="operation">
+            <option value="soma">+ Soma</option>
+            <option value="subtracao">- Subtração</option>
+            <option value="multiplicacao">* Multiplicação</option>
+            <option value="divisao">/ Divisão</option>
+        </select>
+        <div>
+            <input type="number" name="num1" id="num1">
+            <input type="number" name="num2" id="num2">
+        </div>
+        <button onclick="calcular()">Perguntar à IA</button>
+
+        <div id="res">
+
+        </div>
+        
+    </section>
+
+    <section style="background-color: #ff0000; color: #ffffff;" id="dataSection">
+        <h2>Seção de Dados</h2>
+        <form class="column" id="formData">
+            <div class="row">
+                <input type="text" name="name" id="name" placeholder="Nome" required>
+                <input type="date" name="bornDate" id="bornDate"  required>
+            </div> 
+
+            <div class="row">
+                <input type="email" name="email" id="email" placeholder="Email" required>
+                <input type="tel" name="phone" id="phone" placeholder="Telefone" required>
+            </div>
+
+            <div class="row">
+                <input type="number" name="salario" id="salario" placeholder="Salário" required>
+                <input type="text" name="cargo" id="cargo" placeholder="Cargo" required>
+            </div>
+
+            <div class="row">
+                <input type="text" name="empresa" id="empresa" placeholder="Empresa" required>
+                <input type="text" name="cidade" id="cidade" placeholder="Cidade" required>
+            </div>
+
+            <button type="submit">Salvar Dados</button>
+        </form>
+        <p id="formMessage"></p>
+    </section>
+
+    <section style="background-color: #008000; color: #ffffff;" id="configSection">
+        <h2>Configurações</h2>
+        <h3>Configurações para a seção de cálculo.</h3>
+        
+        <input type="text" data-title-for-section="operationsSection" name="operationTitle" id="operationTitle" placeholder="Título da seção de operações" oninput="changeTitle('#operationsSection', 'operationTitle')">
+        <form class="row" >
+            <div class="column" style="align-items: center;">
+                <label for="bgColorOperation">Cor de fundo da seção operação:</label>
+                <input type="color" name="bgColorOperation" id="bgColorOperation" value="#0000ff" oninput="changeBgColor('#operationsSection', 'bgColorOperation')">
+            </div>
+
+            <div class="column" style="align-items: center;">
+                <label for="colorOperation">Cor da fonte da seção operação:</label>
+                <input type="color" name="colorOperation" id="colorOperation" value="#0000ff" oninput="changeColor('#operationsSection', 'colorOperation')">
+            </div>
+        </form>
+
+        <h3>Configurações para a seção de dados.</h3>
+        <input type="text" data-title-for-section="dataSection" name="dataTitle" id="dataTitle" placeholder="Título da seção de dados" oninput="changeTitle('#dataSection', 'dataTitle')">
+        <form class="row">
+            <div class="column" style="align-items: center;">
+                <label for="bgColorData">Cor de fundo da seção de dados:</label>
+                <input type="color" name="bgColorData" id="bgColorData" value="#0000ff" oninput="changeBgColor('#dataSection', 'bgColorData')">
+            </div>
+
+            <div class="column" style="align-items: center;">
+                <label for="colorData">Cor da fonte da seção de dados:</label>
+                <input type="color" name="colorData" id="colorData" value="#0000ff" oninput="changeColor('#dataSection', 'colorData')">
+            </div>
+        </form>
+        <h3>Configurações para a seção de movimento do mouse.</h3>
+        <input type="text" data-title-for-section="mouseSection" name="mouseTitle" id="mouseTitle" placeholder="Título da seção de movimento do mouse" oninput="changeTitle('#mouseSection', 'mouseTitle')">
+        <form class="row">
+            <div class="column" style="align-items: center;">
+                <label for="bgColorMouse">Cor de fundo da seção de movimento do mouse:</label>
+                <input type="color" name="bgColorMouse" id="bgColorMouse" value="#0000ff" oninput="changeBgColor('#mouseSection', 'bgColorMouse')">
+            </div>
+
+            <div class="column" style="align-items: center;">
+                <label for="colorMouse">Cor da fonte da seção de movimento do mouse:</label>
+                <input type="color" name="colorMouse" id="colorMouse" value="#0000ff" oninput="changeColor('#mouseSection', 'colorMouse')">
+            </div>
+        </form>
+    </section>
+
+    <section style="background-color: #ffffff; color: #000000;" id="mouseSection">
+        <h2>Seção de Movimento do Mouse</h2>
+        <p>Mova o mouse por esta seção para ver as coordenadas.</p>
+        <p id="mouseCoordinates"></p>
+        <div class="row">
+            <div class="square"></div>
+        </div>
+    </section>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
