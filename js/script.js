@@ -133,10 +133,7 @@ mouseSection.addEventListener("mousemove", function(event) {
     mouseCoordinates.innerText = `Coordenadas do mouse: X: ${x}, Y: ${y}`;
 });
 
-mouseSection.querySelector(".square").addEventListener("mouseenter", function(event) {
-    event.target.style.animation = "jump 0.5s";
-});
-
-mouseSection.querySelector(".square").addEventListener("mouseenter", function(event) {
-    event.target.style.animation = "jump 0.5s reverse";
+mouseSection.querySelector(".square").addEventListener("click", function(event) {
+    event.target.style.animation = "";
+    setTimeout(() => event.target.style.animation = "jump 0.5s", 0);
 });
