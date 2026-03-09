@@ -124,16 +124,115 @@ function changeTitle(section, inputId) {
 
 
 /* Seção de mouse */
-const mouseSection = document.getElementById("mouseSection");
-const mouseCoordinates = document.getElementById("mouseCoordinates");
 
-mouseSection.addEventListener("mousemove", function(event) {
-    const x = event.clientX;
-    const y = event.clientY;
-    mouseCoordinates.innerText = `Coordenadas do mouse: X: ${x}, Y: ${y}`;
+let square = document.querySelector(".square");
+
+updateRecord();
+calculaDificuldade()
+
+square.addEventListener("mouseenter", function(event) {
+    square.style.top = `${Math.random() * (mouseSection.clientHeight - square.clientHeight)}px`;
+    square.style.left = `${Math.random() * (mouseSection.clientWidth - square.clientWidth)}px`;
 });
 
-mouseSection.querySelector(".square").addEventListener("click", function(event) {
-    event.target.style.animation = "";
-    setTimeout(() => event.target.style.animation = "jump 0.5s", 0);
+const cores =  [
+    "#ff0000ff", "#33FF57", "#3357FF", "#F333FF", "#33FFF5",
+    "#06164bff", "#A833FF", "#5e065eff", "#FF8A33", "#e7e41eff"
+]
+
+square.addEventListener("mouseleave", function(event) {
+    square.style.backgroundColor = cores[Math.floor(Math.random() * cores.length)];
 });
+
+square.addEventListener("click", function(event) {
+    clearInterval(contador);
+    clearTimeout(timeout);
+    
+    const timeElement = mouseSection.querySelector("h3");
+    square.style.display="none";
+    document.getElementById("squareConfigs").style.display="flex";
+    alert(`Você conseguiu em ${timeElement.innerText}!`);
+
+    if(record && parseFloat(record.time.replace("s", "")) < parseFloat(timeElement.innerText.replace("s", "")) && dificuldade < parseFloat(record.dificuldade)){
+        return;
+    }
+    let newRecord = {
+        speed: document.getElementById("speedSquare").value,
+        size: document.getElementById("sizeSquare").value,
+        time: timeElement.innerText,
+        dificuldade: dificuldade
+    }
+
+    localStorage.setItem("record", JSON.stringify(newRecord));
+    updateRecord();
+});
+
+document.getElementById("speedSquare").addEventListener("input", function() {
+    const speed = document.getElementById("speedSquare").value;
+
+    calculaDificuldade();
+
+    document.getElementById("speedValue").innerText = speed;
+    square.style.transitionDuration = `${speed}s`;
+});
+
+document.getElementById("sizeSquare").addEventListener("input", function() {
+    const size = document.getElementById("sizeSquare").value;
+
+    calculaDificuldade();
+
+    document.getElementById("sizeValue").innerText = size;
+    square.style.lineHeight = `${size}px`;
+    square.style.width = `${size}px`;
+    square.style.height = `${size}px`;
+});
+
+document.getElementById("startButton").addEventListener("click", function() {
+    square.style.display="block";
+    square.style.top = `${Math.random() * (mouseSection.clientHeight - square.clientHeight)}px`;
+    square.style.left = `${Math.random() * (mouseSection.clientWidth - square.clientWidth)}px`;
+    const timeElement = mouseSection.querySelector("h3");
+    timeElement.innerText = "0.0s";
+    document.getElementById("squareConfigs").style.display="none";
+    
+    contador = setInterval(function() {
+        const currentTime = parseFloat(timeElement.innerText.replace("s", ""));
+        timeElement.innerText = `${(currentTime + 0.1).toFixed(1)}s`;
+    }, 100);
+
+    timeout =setTimeout(function() {
+        clearInterval(contador);
+        square.style.display="none";
+        document.getElementById("squareConfigs").style.display="flex";
+        alert("Tempo esgotado! Tente novamente.");
+    }, 10000);
+});
+
+function calculaDificuldade(){
+    const size = document.getElementById("sizeSquare").value;
+    const speed = document.getElementById("speedSquare").value;
+
+    const ns = (200 - Number(size)) / (200 - 20);
+    const nv = (2 - Number(speed)) / (2 - 0.1);
+
+    dificuldade = (ns + nv) / 2 * 10;
+    mouseSection.querySelector("#dificuldadeValue").innerText = dificuldade.toFixed(2);
+}
+
+function updateRecord(){
+    record = JSON.parse(localStorage.getItem("record"));
+
+    if(!record) return;
+
+    document.getElementById("speedSquare").value = record.speed;
+    document.getElementById("sizeSquare").value = record.size;
+    document.getElementById("speedValue").innerText = record.speed;
+    document.getElementById("sizeValue").innerText = record.size;
+    square.style.transitionDuration = `${record.speed}s`;
+    square.style.lineHeight = `${record.size}px`;
+    square.style.width = `${record.size}px`;
+    square.style.height = `${record.size}px`;
+
+    calculaDificuldade();
+    document.getElementById("recordValue").innerHTML = `<strong>${record.time}</strong> com velocidade <strong>${record.speed}s</strong> e tamanho <strong>${record.size}px</strong>`;
+}

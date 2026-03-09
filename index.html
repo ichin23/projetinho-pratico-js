@@ -101,12 +101,28 @@
     </section>
 
     <section style="background-color: #ffffff; color: #000000;" id="mouseSection">
-        <h2>Seção de Movimento do Mouse</h2>
-        <p>Mova o mouse por esta seção para ver as coordenadas.</p>
-        <p id="mouseCoordinates"></p>
-        <div class="row">
+        <section id="content" class="column">
+
+            <h3>0.0s</h3>
+            <h2>Clique no quadrado</h2>
             <div class="square">Clique</div>
-        </div>
+            
+            <div>
+                <p>Recorde: <span id="recordValue">Nenhum recorde ainda</span></p>
+            </div>
+
+            <form id="squareConfigs" class="column">
+                <label>Velocidade do quadrado: <span id="speedValue">0.5</span>s</label>
+                <input type="range" name="speedSquare" id="speedSquare" min="0.1" max="2" step="0.1" value="0.5">
+                
+                <label>Tamanho do quadrado: <span id="sizeValue">80</span>px</label>
+                <input type="range" name="sizeSquare" id="sizeSquare" min="20" max="200" step="1" value="80">
+
+                <label>Dificuldade: <span id="dificuldadeValue"></span></label>
+                <button type="button" id="startButton">Start</button>
+            </form>
+        </section>
+        <p style="display: none;" id="contador"></p>
     </section>
 
     <script src="js/script.js"></script>
