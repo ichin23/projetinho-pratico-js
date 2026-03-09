@@ -153,7 +153,7 @@ square.addEventListener("click", function(event) {
     document.getElementById("squareConfigs").style.display="flex";
     alert(`Você conseguiu em ${timeElement.innerText}!`);
 
-    if(record && parseFloat(record.time.replace("s", "")) < parseFloat(timeElement.innerText.replace("s", "")) && dificuldade < parseFloat(record.dificuldade)){
+    if(record && parseFloat(record.time.replace("s", "")) <= parseFloat(timeElement.innerText.replace("s", "")) && dificuldade <= parseFloat(record.dificuldade)){
         return;
     }
     let newRecord = {
